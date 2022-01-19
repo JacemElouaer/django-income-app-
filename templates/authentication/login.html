@@ -17,20 +17,11 @@
                             <h4>  Register  for a free Acoount </h4>
                           </div>
 
-                       <form action="{% url 'register' %}" method="post" >
+                       <form action="{% url 'login' %}" method="post" >
                         {% csrf_token %}
                         {% include 'partials/_messages.html' %}
                         <div class="mb-3 form-group">
                             <input type="text" name="username" placeholder="Username " id="usernameField" class="form-control form-control-sm" value="{{validField.username}}"/>
-                        </div>
-                        <div class="invalid-feedback feedback" style="display: none">
-                        </div>
-                        <p class="text-sm text-success usernameoutputField"  style="display: none">
-                        </p>
-                        <div class="mb-3 form-group">
-                            <input type="email" name="email" placeholder="email" id="emailField" class="form-control form-control-sm" value="{{validField.email}}"/>
-                        </div>
-                        <div class="invalid-feedback emailfeedback" style="display: none">
                         </div>
 
                         <div class="mb-3 form-group">
