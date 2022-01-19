@@ -4,17 +4,19 @@
 <h5>Preferred Currency</h5>
 <hr/>
 <div class="container mt-5">
-  <form method="post" action="{{preferences}}" >
+  {% include 'partials/_messages.html' %}
+  <form method="post" action="{% url 'preferences' %}" >
+    {% csrf_token %}
     <div class="input-group">
-      <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+      <select name="currency" class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
         <option selected>Choose...</option>
         {% for currency  in currencies %}
-        <option selected>{{currency.name}} -  {{currency.value}}</option>
+        <option  name="currency" value="{{currency.name}} -  {{currency.value}}">{{currency.name}} -  {{currency.value}}</option>
         {% endfor %}
 
       </select>
       <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button">Save</button>
+        <input class="btn btn-outline-secondary"  type="submit"  value="Save"/>
       </div>
     </div>
   </form>

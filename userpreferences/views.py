@@ -4,6 +4,8 @@ import os
 import json
 # to understand json stucture
 from django.conf import settings
+from .models import *
+from django.contrib import messages
 
 
 # Create your views here.
@@ -18,4 +20,22 @@ def index(request):
         for k, v in data.items():
             currency_data.append({"name": k, 'value': v})
 
-    return render(request, 'preferences/index.html ', {'currencies': currency_data})
+    exists = UserPreferences.objects.filter(user=request.user).exists()
+    user_preferences = None
+
+    if exists:
+        user_preferences = UserPreferences.objects.get(user=request.user)
+
+    if request.method == 'GET':
+        return render(request, 'preferences/index.html ', {'currencies': currency_data})
+    if request.method == 'POST':
+        currency = request.POST['currency']
+        print(request.POST)
+        if exists:
+            user_preferences.currency = currency
+            user_preferences.save()
+
+        else:
+            UserPreferences.objects.create(user=request.user, currency=currency)
+        messages.success(request, "User Currency  submitted !  ")
+        return render(request, 'preferences/index.html ', {'currencies': currency_data})
