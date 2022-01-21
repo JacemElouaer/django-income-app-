@@ -2,21 +2,58 @@
 
 
 {%  block content  %}
- {% include 'partials/_messages.html' %}
-<h1>Expenses List</h1>
-<ul class="list-group">
-    <li class="list-group-item"> Bought </li>
-    <li class="list-group-item"> Bought </li>
-    <li class="list-group-item"> Bought </li>
-    <li class="list-group-item"> Bought </li>
-    <li class="list-group-item"> Bought </li>
-    <li class="list-group-item"> Bought </li>
-    <li class="list-group-item"> Bought </li>
-    <li class="list-group-item"> Bought </li>
-    <li class="list-group-item"> Bought </li>
-    <li class="list-group-item"> Bought </li>
-    <li class="list-group-item"> Bought </li>
-    <li class="list-group-item"> Bought </li>
-    <li class="list-group-item"> Bought </li>
-</ul>
+
+<div class="container mt-5"></div>
+    <div class ='row '>
+        <div class ="col-md-10">
+            <nav aria-label="breadcrumb " class="d-flex align-items-center ps-3 p-1 pt-3" style="background :  #E4E4E4 ;  border-radius :  3px ">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="{% url 'expenses' %}">Expenses</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Add Expenses</li>
+              </ol>
+            </nav>
+        </div>
+
+        <div class="col-md-2 align-items-center  ">
+            <a href ="{% url 'add-expenses' %}" class =" ps-1 p-2 pt-3 btn btn-primary h-100"> add expenses</a>
+        </div>
+        <div class="mt-2">
+{% include 'partials/_messages.html' %}
+        </div>
+</div>
+    <div class="col-md-9" >
+        {% if  Expenses.count %}
+        <table class="table table-stripped table-hover">
+            <thead>
+                <tr>
+                    <th>Amount (Currency)</th>
+                    <th>Category</th>
+                    <th>Description </th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for expense in Expenses %}
+                <tr>
+                    <td>{{expense.amount}}</td>
+                    <td>{{expense.category}}</td>
+                    <td>{{expense.description}}</td>
+                    <td>{{expense.date}}</td>
+                    <td class="row">
+                        <a href="{% url 'expense-edit' expense  %}"
+                            class  ="btn btn-second">Edit</a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+        {% endif %}
+
+    </div>
+
+
 {% endblock %}
