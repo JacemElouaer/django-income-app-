@@ -22,7 +22,7 @@
 {% include 'partials/_messages.html' %}
         </div>
 </div>
-    <div class="col-md-9" >
+    <div class="col-md-12" >
         {% if  Expenses.count %}
         <table class="table table-stripped table-hover">
             <thead>
@@ -37,13 +37,15 @@
             <tbody>
             {% for expense in Expenses %}
                 <tr>
+
                     <td>{{expense.amount}}</td>
                     <td>{{expense.category}}</td>
                     <td>{{expense.description}}</td>
                     <td>{{expense.date}}</td>
-                    <td class="row">
-                        <a href="{% url 'expense-edit' expense  %}"
-                            class  ="btn btn-second">Edit</a>
+                    <td>
+                        <a href="{% url 'edit-expenses' expense.id  %}"
+                            class  ="btn btn-outline-success btn-sm text-center"
+                           style="border-radius :  9px ;  opacity :  0.9">Edit</a>
 
                     </td>
                 </tr>

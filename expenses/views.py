@@ -50,14 +50,43 @@ def add_expenses(request):
 
 def edit_expenses(request, id):
     expense = Expense.objects.get(id=id)
+    categories = Category.objects.all()
     context = {
-            "expense" :  expense
-        }
-    if request.method ==  "GET":
-
-        return  render(request ,  'expenses/edit-expenses.html' , context)
+        "expense": expense,
+        "categories": categories
+    }
+    if request.method == "GET":
+        return render(request, 'expenses/edit_expenses.html', context)
     if request.method == "POST":
+        messages.info(request, "Handling Edit ")
+        Categories = request.POST['category']
+        Expense_date = request.POST['expense_date']
+        Description = request.POST['description']
+        Amount = request.POST['amount']
+        if not Amount:
+            messages.error(request, "Amount is required ")
+            return render(request, 'expenses/edit_expenses.html', context)
+        if not Description:
+            messages.error(request, "Description is required ")
+            return render(request, 'expenses/edit_expenses.html', context)
+        if not Expense_date:
+            messages.error(request, "Expense_date is required ")
+            return render(request, 'expenses/edit_expenses.html', context)
+        if not Categories:
+            messages.error(request, "Category is required ")
+            return render(request, 'expenses/edit_expenses.html', context)
 
-        messages.info(request , "Handling Edit ")
+        expense.amount = Amount
+        expense.date = Expense_date
+        expense.category = Categories
+        expense.description = Description
+        expense.save()
+        messages.success(request, "Expense updated successfully  ! ")
+        return redirect('expenses')
 
-        return render(request, 'expenses/edit-expenses.html', context)
+
+def delete_expenses(request, id):
+    expense = Expense.objects.get(id=id)
+    expense.delete()
+    messages.success(request, "expense Deleted successefully")
+    return redirect('expenses')
