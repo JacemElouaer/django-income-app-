@@ -3,15 +3,27 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from django.contrib import messages
 from django.shortcuts import redirect
+from  django.core.paginator  import Paginator
+#==> table format
 
 
 # Create your views here.
 # permission decorator
 @login_required(login_url='authentication/login')
 def index(request):
+    #paginator need
+    #1 /  declaration
+    #2 / get page number from  request GET
+    #3 / pass the page_obj in the context
     Expenses = Expense.objects.all()
+    paginator  =  Paginator(Expenses ,4)
+    # this means that paginator will devide expenses on 2
+    page_number =  request.GET.get('page')
+    page_obj = Paginator.get_page(paginator,page_number)
+
     context = {
-        "Expenses": Expenses
+        "Expenses": Expenses,
+        "page_obj" :  page_obj
     }
     return render(request, 'expenses/index.html', context)
 
