@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+{%  block content  %}
+
+<div class="container mt-4">
+     <nav aria-label="breadcrumb " class="d-flex align-items-center ps-3 p-1 pt-3" style="background :  #E4E4E4 ;  border-radius :  3px ">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                 <a href="{% url 'incomes' %}">Incomes</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Incomes</li>
+        </ol>
+     </nav>
+</div>
+<div  class ='mt-1' >
+{% include 'partials/_messages.html' %}
+    </div>
+    <div class="card mt-4">
+        <div class="card-body">
+            <form method="post"  action="{% url 'add-incomes' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label >Amount</label>
+                    <input type="number" name="amount" class=" form-control form-control-sm" value = "{{Values.amount}}" />
+                </div>
+                <div class="form-group">
+                    <label >Description</label>
+                    <input type="text" name="description" value="{{Values.description}}"  class="form-control form-control-sm" />
+                </div>
+                <div class="form-group">
+                    <label >Category</label>
+                    <select type="number" name="source" class="
+                    form-control form-control-sm" >
+                        {% for source in sources %}
+                            <option value="{{source.name}}" name="source">{{source.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label >Date of Income</label>
+                    <input type="date"  name="income_date" class="form-control form-control-sm"
+                    value = "{{Values.income_date}}"/>
+                </div>
+
+                <div class="form-group mt-2">
+                    <input type="submit" value="Register" class="btn btn-primary btn-sm "/>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock content %}
