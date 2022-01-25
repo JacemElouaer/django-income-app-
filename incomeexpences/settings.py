@@ -140,3 +140,4 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "test@gmail.com"
 
 EMAIL_HOST_PASSWORD = "testtesttesttest"
+APPEND_SLASH=False

@@ -28,6 +28,7 @@
                     <input type="number" name="amount" class=" form-control form-control-sm" value = "{{expense.amount}}" />
                 </div>
                 <div class="form-group">
+                <div class="form-group">
                     <label >Description</label>
                     <input type="text" name="description" value="{{expense.description}}"  class="form-control form-control-sm" />
                 </div>
@@ -42,9 +43,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label >Date of Expense  : <strong> {{expense.date}}</strong> </label>
                     <input type="date"  name="expense_date" class="form-control form-control-sm"
-                    value = "{{expense.date}}"/>
+                    value = "{{expense.date |date:'Y-m-d'}}"/>
                 </div>
 
                 <div class="form-group mt-2 ">

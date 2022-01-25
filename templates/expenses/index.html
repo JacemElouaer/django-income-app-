@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load static %}
 
 {%  block content  %}
 
@@ -24,10 +25,19 @@
 </div>
     <div class="col-md-12" >
         {% if  Expenses.count %}
-        <table class="table table-stripped table-hover">
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <input  type="text" class="form-controle"  id="searchField" placeholder="Search"/>
+                </div>
+            </div>
+        </div>
+        <div class="app-table">
+            <table class="table table-stripped table-hover">
             <thead>
                 <tr>
-                    <th>Amount (Currency)</th>
+                    <th>Amount ({{currency}})</th>
                     <th>Category</th>
                     <th>Description </th>
                     <th>Date</th>
@@ -53,11 +63,28 @@
             </tbody>
 
         </table>
-<div class="d-flex justify-content-between">
-        <div >
+        </div>
+    <div class="table-output" style="display : none" >
+        <table class="table table-stripped table-hover">
+            <thead>
+                <tr>
+                    <th>Amount ({{currency}})</th>
+                    <th>Category</th>
+                    <th>Description </th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody  class="table-body">
+            </tbody>
+        </table>
+    </div>
+        <div class="pagination-container">
+<div class="d-flex justify-content-between ">
+        <div class="" >
             showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
         </div>
-     <div >
+     <div>
             <ul class="pagination align-right float-right mr-auto">
                   {% if page_obj.has_previous %}
                   <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
@@ -72,7 +99,8 @@
         {% endif %}
         </div>
      </div>
+            </div>
 </div>
-
+<script src="{% static 'js/searchExpenses.js' %}"></script>
 
 {% endblock %}
